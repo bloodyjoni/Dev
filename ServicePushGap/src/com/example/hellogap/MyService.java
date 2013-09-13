@@ -6,6 +6,9 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
@@ -48,6 +51,7 @@ public class MyService extends BackgroundService {
 
 	@Override
 	protected void setConfig(JSONObject config) {
+		//mofifier pour la prise en chage de mon JSON
 		try {
 			if (config.has("HelloTo"))
 				this.mHelloTo = config.getString("HelloTo");
@@ -76,3 +80,5 @@ public class MyService extends BackgroundService {
 
 
 }
+
+
