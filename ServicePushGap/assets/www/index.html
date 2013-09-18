@@ -3,10 +3,13 @@
  <head>
   <title>PhoneGap</title>
   <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-   <script type="text/javascript" charset="utf-8" src="index.js"></script>
-		<script type="text/javascript" src="backgroundService.js"></script>
+  <script type="text/javascript" src="backgroundService.js"></script>
 		<script type="text/javascript" src="myService.js"></script>
-
+		<script type="text/javascript" src="PushNotification.js"></script>
+		<script type="text/javascript" src="jQuery.js"></script>
+		<script type="text/javascript" src="Pushnotif.js"></script>
+   <script type="text/javascript" charset="utf-8" src="index.js"></script>
+		
         <script type="text/javascript" >
         	var myService = cordova.require('cordova/plugin/myService');
         	
@@ -64,17 +67,13 @@
  			}
 
  			function setConfig() {
- 				//ici cree un JSON avec toutes les zolies fct a l'intérieur 
-				
- 				
- 				
- 				
+ 				 				
  				var helloToTxt = document.getElementById("helloToTxt");
  				var helloToString = helloToTxt.value;
- 				var config = { 
+ 				var configuration = { 
  								"HelloTo" : helloToString 
  							}; 
-				myService.setConfiguration(	config,
+				myService.setConfiguration(	configuration,
 											function(r){handleSuccess(r)},
 											function(e){handleError(e)});
  			}
@@ -161,7 +160,9 @@
                 <p class="event received">Device is Ready</p>
     </div>
    <script type="text/javascript">
+   PushConf.initialize();
             app.initialize();
+           
    </script>
    	<h1>MyService V2.9.0</h1>
 

@@ -10,8 +10,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.app.Activity;
+import android.os.Bundle;
 
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
+
+import org.mozilla.javascript.*;
 
 public class MyService extends BackgroundService {
 
@@ -19,23 +23,55 @@ public class MyService extends BackgroundService {
 
 	private String mHelloTo = "World";
 
+    private String jsstr="console.log(\"var text = 'Hello Android!\\\\nThis is JavaScript in action!';\\n\")";
+
+
+	@SuppressWarnings("finally")
 	@Override
 	protected JSONObject doWork() {
 		JSONObject result = new JSONObject();
 
-		try {
-			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
-			String now = df.format(new Date(System.currentTimeMillis())); 
+		//try {
+            // Create an execution environment.
+            org.mozilla.javascript.Context cx =  org.mozilla.javascript.Context.enter();
 
-			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
-			result.put("Message", msg);
+            // Turn compilation off.
+            cx.setOptimizationLevel(-1);
 
-			Log.d(TAG, msg);
-		} catch (JSONException e) {
-		}
+            try
+            {
+                // Initialize a variable scope with bindnings for
+                // standard objects (Object, Function, etc.)
+                Scriptable scope = cx.initStandardObjects();
 
-		return result;	
-	}
+                // Set a global variable that holds the activity instance.
+                ScriptableObject.putProperty(
+                        scope, "TheActivity",  org.mozilla.javascript.Context.javaToJS(this, scope));
+
+                // Evaluate the script.
+                cx.evaluateString(scope, jsstr, "doti:", 1, null);
+            	
+    			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+    			String now = df.format(new Date(System.currentTimeMillis())); 
+
+    			String msg = "Hello " + this.mHelloTo + " - its currently " + now;
+    			result.put("Message", msg);
+
+    			Log.d(TAG, msg);
+    		} catch (JSONException e) {
+
+    			return result;	}
+            finally
+            {
+            	 org.mozilla.javascript.Context.exit();
+            	 return result;
+            }
+			
+		
+		
+		
+
+}
 
 	@Override
 	protected JSONObject getConfig() {
