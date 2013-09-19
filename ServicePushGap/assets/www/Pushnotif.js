@@ -15,8 +15,8 @@ var PushConf = {
 		// Bind any events that are required on startup. Common events are:
 		// 'load', 'deviceready', 'offline', and 'online'.
 		 bindEvents : function() {
-			document.addEventListener('deviceready', onDeviceReadyforPush, false);
-			
+			//document.addEventListener('deviceready', onDeviceReadyforPush, false);
+			onDeviceReadyforPush();
 		}
 };
 
@@ -105,15 +105,15 @@ function onBackButton(e){
 
 
 }
-
+function errorHandler(error) {
+	alert(error);
+}
 	 function successHandler(e) {
 
 
 			console.log(result);
 
 		}
-		function errorHandler(error) {
-			alert(error);
-		}
+		
 
 

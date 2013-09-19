@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="8" />
+        android:targetSdkVersion="11" />
 
     <application
         android:allowBackup="true"
@@ -47,6 +47,12 @@
             </intent-filter>
         </receiver>
         <service android:name="com.plugin.gcm.GCMIntentService" />
+           <receiver android:name="com.example.hellogap.ShutdownReciever" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" >
+                </action>
+            </intent-filter>
+        </receiver>
     </application>
 	<supports-screens
     android:largeScreens="true"
@@ -71,6 +77,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />

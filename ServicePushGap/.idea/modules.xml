@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Dev.iml" filepath="$PROJECT_DIR$/../Dev.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../PushGapDB/PushGapDB.iml" filepath="$PROJECT_DIR$/../PushGapDB/PushGapDB.iml" />
       <module fileurl="file://$PROJECT_DIR$/ServicePushGap.iml" filepath="$PROJECT_DIR$/ServicePushGap.iml" />
     </modules>
   </component>
