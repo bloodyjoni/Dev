@@ -70,10 +70,10 @@
  				 				
  				var helloToTxt = document.getElementById("helloToTxt");
  				var helloToString = helloToTxt.value;
- 				var configuration = { 
+ 				var config = { 
  								"HelloTo" : helloToString 
  							}; 
-				myService.setConfiguration(	configuration,
+				myService.setConfiguration(	config,
 											function(r){handleSuccess(r)},
 											function(e){handleError(e)});
  			}
