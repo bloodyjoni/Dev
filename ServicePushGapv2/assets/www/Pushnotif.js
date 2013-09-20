@@ -7,7 +7,7 @@ var PushConf = {
 		 senderID : "447745035223",
 		 token : "0" ,
 		// Application Constructor
-		 initialize : function() {
+		 initialize : function() {+
 			this.bindEvents();
 		},
 		// Bind Event Listeners
