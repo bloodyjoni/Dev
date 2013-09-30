@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>PhoneGap</title>
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+   <script type="text/javascript" charset="utf-8" src="index.js"></script>
+  <script type="text/javascript" src="backgroundService.js"></script>
+		<script type="text/javascript" src="myService.js"></script>
+		
+		<script type="text/javascript" src="Pushnotif.js"></script>
+		<script type="text/javascript" src="jQuery.js"></script>
+   <script type="text/javascript" charset="utf-8" src="index.js"></script>
+		<script type="text/javascript" src="PushNotification.js"></script>
+        <script type="text/javascript" src= Initialize.js>
+        	
+ </head>
+ <body>
+    <h1>Hello PhoneGap</h1>
+	 <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+    </div>
+   <script type="text/javascript" >
+   //PushConf.initialize();
+  	    PushConf.initialize();
+            app.initialize();
+           
+   </script>
+   	<h1>MyService V2.9.0</h1>
+
+		<table>
+			<tr>
+				<th>Service</th>
+				<td><div id="serviceStatus"></div></td>
+				<td><input disabled id="toggleService" type="button" value="toggle"/></td>
+			</tr>
+			<tr>
+				<th>Timer</th>
+				<td><div id="timerStatus"></div></td>
+				<td><input disabled id="toggleTimer" type="button" value="toggle"/></td>
+			</tr>
+			<tr>
+				<th>Boot</th>
+				<td><div id="bootStatus"></div></td>
+				<td><input disabled id="toggleBoot" type="button" value="toggle"/></td>
+			</tr>
+
+			<tr>
+				<th colspan=3 align="center">Configuration</th>
+			</tr>
+			<tr>
+				<th align="left">Hello To</th>
+				<td colspan=2 align="center"><input id="helloToTxt" type="Text"/></td>
+			</tr>
+			<tr>
+				<td colspan=3 align="center"><input disabled id="updateBtn" type="button" value="Update Config"/></td>
+			</tr>
+
+			<tr>
+				<th colspan=3 align="center">Latest Result</th>
+			</tr>
+
+			<tr>
+				<td colspan=3 align="center"><div id="resultMessage"></div></td>
+			</tr>
+
+			<tr>
+				<td colspan=3 align="center"><input disabled id="refreshBtn" type="button" value="Refresh"/></td>
+			</tr>
+
+		</table>
+ </body>
+</html>
