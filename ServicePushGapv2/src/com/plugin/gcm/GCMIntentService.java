@@ -85,15 +85,14 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	public void createNotification(Context context, Bundle extras)
 	{
-		//context=ApplicationContext.getContext();
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		String appName = getAppName(this);
 
-		Intent notificationIntent = new Intent(this, MainActivity.class);
+		Intent notificationIntent = new Intent(this, MainActivity.class); // changed from PushHandler to main activity to ensure the boot of the app
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		notificationIntent.putExtra("pushBundle", extras);
 
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);		
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);		
 
 		NotificationCompat.Builder mBuilder = 
 			new NotificationCompat.Builder(context)
@@ -101,8 +100,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.setWhen(System.currentTimeMillis())
 				.setContentTitle(appName)
 				.setTicker(appName)
-				.setContentIntent(contentIntent);
-
+				.setContentIntent(contentIntent)
+				.setAutoCancel(true);
+				
 		String message = extras.getString("message");
 		if (message != null) {
 			mBuilder.setContentText(message);
@@ -140,7 +140,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	private static String getAppName(Context context)
 	{
 		CharSequence appName = 
-				ApplicationContext.getContext()
+				context
 					.getPackageManager()
 					.getApplicationLabel(context.getApplicationInfo());
 		
@@ -149,7 +149,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	
 	public boolean isInForeground()
 	{
-		ActivityManager activityManager = (ActivityManager) ApplicationContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
 		List<RunningTaskInfo> services = activityManager
 				.getRunningTasks(Integer.MAX_VALUE);
 

@@ -3,6 +3,7 @@ import org.apache.cordova.DroidGap;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.plugin.gcm.PushPlugin;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,23 +19,29 @@ public class MainActivity extends DroidGap {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_main);
         if (checkPlayServices()) {
+        	
 	  super.loadUrl("file:///android_asset/www/index.html");
+	  Bundle bndl=getIntent().getExtras();
+	  if(bndl!=null){
+	  if(bndl.containsKey("pushBundle"))
+	  { handleGCMMessagesLaunch(bndl);}
 	  }
-	  
+        }
     }
-	@Override
 	protected void onResume() {
 		super.onResume();
 		checkPlayServices();
+		Bundle bndl=getIntent().getExtras();
+		  if(bndl!=null){
+		  if(bndl.containsKey("pushBundle"))
+		  { handleGCMMessagesLaunch(bndl.getBundle("pushBundle"));}
+		  }
+	        
+		
 	}
 
     
-  /*  public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-	*/
+
     private boolean checkPlayServices() {
     int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
     if (resultCode != ConnectionResult.SUCCESS) {
@@ -49,4 +56,9 @@ public class MainActivity extends DroidGap {
     }
     return true;
 }
+    private void handleGCMMessagesLaunch(Bundle SavedInstance){
+    	Log.d("MainActivity","inside MainActivityHandlerGCM");
+    	PushPlugin.sendExtras(SavedInstance);
+
+    }
 }
