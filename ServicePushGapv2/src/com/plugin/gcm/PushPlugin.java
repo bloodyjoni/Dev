@@ -28,11 +28,9 @@ public class PushPlugin extends CordovaPlugin {
 	public static final String EXIT = "exit";
 
 	private static CordovaWebView gWebView;
-<<<<<<< HEAD
+
 	private static String gECB="onNotificationGCM";
-=======
-	private static String gECB;
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 	private static String gSenderID;
 	private static Bundle gCachedExtras = null;
 
@@ -66,11 +64,9 @@ public class PushPlugin extends CordovaPlugin {
 
 				Log.v(TAG, "execute: ECB=" + gECB + " senderID=" + gSenderID);
 
-<<<<<<< HEAD
+
 				//GCMRegistrar.register(getApplicationContext(), gSenderID);
-=======
-				GCMRegistrar.register(getApplicationContext(), gSenderID);
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 				result = true;
 			} catch (JSONException e) {
 				Log.e(TAG, "execute: Got JSON Exception " + e.getMessage());
@@ -85,11 +81,8 @@ public class PushPlugin extends CordovaPlugin {
 			
 		} else if (UNREGISTER.equals(action)) {
 
-<<<<<<< HEAD
+
 			//GCMRegistrar.unregister(getApplicationContext());
-=======
-			GCMRegistrar.unregister(getApplicationContext());
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 
 			Log.v(TAG, "UNREGISTER");
 			result = true;
@@ -220,11 +213,9 @@ public class PushPlugin extends CordovaPlugin {
     
 	public void onDestroy() 
 	{
-<<<<<<< HEAD
+
 		//GCMRegistrar.onDestroy(getApplicationContext());
-=======
-		GCMRegistrar.onDestroy(getApplicationContext());
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 		gWebView = null;
 		gECB = null;
 		super.onDestroy();

@@ -3,10 +3,9 @@ import org.apache.cordova.DroidGap;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-<<<<<<< HEAD
+
 import com.plugin.gcm.PushPlugin;
-=======
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,7 +21,7 @@ public class MainActivity extends DroidGap {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_main);
         if (checkPlayServices()) {
-<<<<<<< HEAD
+
         	
 	  super.loadUrl("file:///android_asset/www/index.html");
 	  Bundle bndl=getIntent().getExtras();
@@ -46,25 +45,7 @@ public class MainActivity extends DroidGap {
 
     
 
-=======
-	  super.loadUrl("file:///android_asset/www/index.html");
-	  }
-	  
-    }
-	@Override
-	protected void onResume() {
-		super.onResume();
-		checkPlayServices();
-	}
 
-    
-  /*  public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-	*/
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
     private boolean checkPlayServices() {
     int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
     if (resultCode != ConnectionResult.SUCCESS) {
@@ -79,12 +60,11 @@ public class MainActivity extends DroidGap {
     }
     return true;
 }
-<<<<<<< HEAD
+
     private void handleGCMMessagesLaunch(Bundle SavedInstance){
     	Log.d("MainActivity","inside MainActivityHandlerGCM");
     	PushPlugin.sendExtras(SavedInstance);
 
     }
-=======
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 }

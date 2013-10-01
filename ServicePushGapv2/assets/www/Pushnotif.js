@@ -1,20 +1,14 @@
 
-<<<<<<< HEAD
-=======
-var pushNotification;
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 
 var PushConf = {
 		 addTokenScript : "http://www.proyectored.com.ar/mobile/addtoken.php?token=",
 		 deleteTokenScript  : "http://www.proyectored.com.ar/mobile/deletetoken.php?token=",
 		 senderID : "447745035223",
 		 token : "0" ,
-		// Application Constructor
-<<<<<<< HEAD
+
 		 initialize : function() {
-=======
-		 initialize : function() {+
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 			this.bindEvents();
 		},
 		// Bind Event Listeners
@@ -22,13 +16,10 @@ var PushConf = {
 		// Bind any events that are required on startup. Common events are:
 		// 'load', 'deviceready', 'offline', and 'online'.
 		 bindEvents : function() {
-<<<<<<< HEAD
+
 			document.addEventListener('deviceready', onDeviceReadyforPush, false);
 			//onDeviceReadyforPush();
-=======
-			//document.addEventListener('deviceready', onDeviceReadyforPush, false);
-			onDeviceReadyforPush();
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 		}
 };
 
@@ -67,22 +58,9 @@ function  onNotificationGCM(e) {
 	{
 	case 'registered':
 		if ( e.regid.length > 0 )
-<<<<<<< HEAD
-		{		}
-=======
-		{
-			PushConf.token=e.regid;
-			var xhr= getXMLHttpRequest();
-			console.log("Regid " + PushConf.token);
-			alert('registration id = '+ PushConf.token);
-			var sVar1 = encodeURIComponent(PushConf.token);
-			xhr.open("GET", PushConf.addTokenScript +sVar1, false);
-			xhr.send(null);
-			// store the token value
-			console.log("access remote server done");
 
-		}
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+		{		}
+
 		break;
 
 	case 'message':
@@ -104,18 +82,7 @@ function onBackButton(e){
 	if (e){
 		e.preventDefault();
 
-<<<<<<< HEAD
-=======
-		var xhr= getXMLHttpRequest();
-		console.log("Regidunregister" + PushConf.token);
-		alert('registration id = '+ PushConf.token);
-		var sVar1 = encodeURIComponent(PushConf.token);
-		console.log(sVar1);
-		xhr.open("GET", PushConf.deleteTokenScript + sVar1, false);
-		xhr.send(null);
-		pushNotification.unregister(successHandler,errorHandler);
-		navigator.app.exitApp();
->>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
+
 	}
 	else
 	{
