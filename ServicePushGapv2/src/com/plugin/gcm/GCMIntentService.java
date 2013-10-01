@@ -2,10 +2,14 @@ package com.plugin.gcm;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import com.example.hellogap.ApplicationContext;
 import com.example.hellogap.MainActivity;
 import com.google.android.gcm.GCMBaseIntentService;
 
+=======
+import com.google.android.gcm.GCMBaseIntentService;
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,7 +92,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		String appName = getAppName(this);
 
+<<<<<<< HEAD
 		Intent notificationIntent = new Intent(this, MainActivity.class); // changed from PushHandler to main activity to ensure the boot of the app
+=======
+		Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		notificationIntent.putExtra("pushBundle", extras);
 
@@ -100,9 +108,14 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.setWhen(System.currentTimeMillis())
 				.setContentTitle(appName)
 				.setTicker(appName)
+<<<<<<< HEAD
 				.setContentIntent(contentIntent)
 				.setAutoCancel(true);
 				
+=======
+				.setContentIntent(contentIntent);
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 		String message = extras.getString("message");
 		if (message != null) {
 			mBuilder.setContentText(message);

@@ -1,7 +1,10 @@
 package com.plugin.gcm;
 
+<<<<<<< HEAD
 import com.example.hellogap.ApplicationContext;
 
+=======
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -61,8 +64,12 @@ public class PushHandlerActivity extends Activity
 	private void forceMainActivityReload()
 	{
 		PackageManager pm = getPackageManager();
+<<<<<<< HEAD
 		Intent launchIntent = pm.getLaunchIntentForPackage(ApplicationContext.getContext().getPackageName());  
 		Log.d("ForceMainActivityReload",ApplicationContext.getContext().getPackageName());
+=======
+		Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 		startActivity(launchIntent);
 	}
 

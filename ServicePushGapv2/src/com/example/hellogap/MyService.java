@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+<<<<<<< HEAD
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +27,16 @@ import android.os.AsyncTask;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+=======
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.red_folder.phonegap.plugin.backgroundservice.BackgroundService;
 
@@ -35,29 +46,47 @@ public class MyService extends BackgroundService {
 	private String mHelloTo = "World";
 	final String EXTRA_MESSAGE = "message";
 	final String PROPERTY_REG_ID = "registration_id";
+<<<<<<< HEAD
 
 	final String PROPERTY_APP_VERSION = "appVersion";
 	final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	GoogleCloudMessaging gcm ;
 	String regid ="";
+=======
+	
+	final String PROPERTY_APP_VERSION = "appVersion";
+	final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	GoogleCloudMessaging gcm;
+	String regid;
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	/**
 	 * Substitute you own sender ID here. This is the project number you got
 	 * from the API Console, as described in "Getting Started."
 	 */
 	String SENDER_ID = "447745035223";
+<<<<<<< HEAD
 	String ADD_TOKEN_SCRIPT ="http://www.proyectored.com.ar/mobile/addtoken.php?uuid=";
 	String DELETE_TOKEN_SCRIPT =  "http://www.proyectored.com.ar/mobile/deletetoken.php?token=";
 
+=======
+	String ADD_TOKEN_SCRIPT ="http://www.proyectored.com.ar/mobile/addtoken.php?token=";
+	String DELETE_TOKEN_SCRIPT =  "http://www.proyectored.com.ar/mobile/deletetoken.php?token=";
+	
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	/**
 	 * Tag used on log messages.
 	 */
 	static final String TAG = "GCMREGISTRATION";
 	@Override
+<<<<<<< HEAD
 	// Add wait for network
+=======
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	protected JSONObject doWork() {
 
 
 
+<<<<<<< HEAD
 		JSONObject result = new JSONObject();
 
 		registerBackground();
@@ -68,6 +97,47 @@ public class MyService extends BackgroundService {
 
 
 		// connection part
+=======
+
+
+		String regid="";
+
+		JSONObject result = new JSONObject();
+		gcm = GoogleCloudMessaging.getInstance(this);
+		try {
+			regid=gcm.register(SENDER_ID);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//regid = gcm.toString();
+		Log.d(TAG,regid);
+
+		// connection part
+		URL url = null;
+		try {
+			url = new URL("http://www.proyectored.com.ar/mobile/addtoken.php?token="+regid);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			Log.d(TAG,"InvalidURL");
+			e.printStackTrace();
+		}
+		HttpURLConnection urlConnection = null;
+		try {
+			urlConnection = (HttpURLConnection) url.openConnection();
+
+			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+			InputStreamReader reader= new InputStreamReader(in);
+			Log.d("urlconnection return",reader.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		finally {
+			urlConnection.disconnect();
+		}
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
 		String now = df.format(new Date(System.currentTimeMillis())); 
@@ -81,6 +151,7 @@ public class MyService extends BackgroundService {
 		}
 
 		Log.d("msg", msg);
+<<<<<<< HEAD
 		return result;
 
 	}
@@ -106,6 +177,15 @@ public class MyService extends BackgroundService {
 
 	}
 
+=======
+
+		
+		return result;
+
+	}
+
+	@Override
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	protected void setConfig(JSONObject config) {
 		//mofifier pour la prise en chage de mon JSON
 		try {
@@ -115,16 +195,27 @@ public class MyService extends BackgroundService {
 				this.DELETE_TOKEN_SCRIPT = config.getString("deleteTokenScript");
 			if (config.has("senderID"))
 				this.SENDER_ID = config.getString("senderID");
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 		} catch (Exception e) {
 			Log.d(TAG,"Set Config Error"+ e.toString());
 		}
 		// launch the service
+<<<<<<< HEAD
 		//doWork();
 
 	}     
 
 
+=======
+		doWork();
+
+	}     
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	@Override
 	protected JSONObject initialiseLatestResult() {
 		// TODO Auto-generated method stub
@@ -139,7 +230,11 @@ public class MyService extends BackgroundService {
 
 	@Override
 	protected void onTimerDisabled() {
+<<<<<<< HEAD
 		//doWork();
+=======
+		// TODO Auto-generated method stub
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 
 	}
 
@@ -155,6 +250,7 @@ public class MyService extends BackgroundService {
 
 		return result;
 	}
+<<<<<<< HEAD
 
 
 	//private static MyService INSTANCE = new MyService();
@@ -166,6 +262,12 @@ public class MyService extends BackgroundService {
 		if(gcm != null){
 
 
+=======
+	/*public static boolean unregisterService(){
+		if(gcm != null){
+			
+			
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 			// connection part
 			URL url = null;
 			try {
@@ -195,6 +297,7 @@ public class MyService extends BackgroundService {
 		}
 		else return false;
 	}
+<<<<<<< HEAD
 	 */
 
 
@@ -262,3 +365,9 @@ public class MyService extends BackgroundService {
 		}.execute(null, null, null);
 	}
 }
+=======
+*/
+}
+
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8

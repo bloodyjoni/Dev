@@ -3,6 +3,7 @@
  */
 package com.example.hellogap;
 
+<<<<<<< HEAD
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+=======
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 import android.util.Log;
 
 /**
@@ -29,15 +35,22 @@ public class ShutdownReciever extends BroadcastReceiver {
 	/**
 	 * @param args
 	 */
+<<<<<<< HEAD
 	
 	public static void main() {
 		// TODO Auto-generated method stub
 		
+=======
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	}
 
 	@Override
 	public void onReceive(Context arg0, Intent arg1) {
 		
+<<<<<<< HEAD
 		
 		unregisterBackground();
 	
@@ -96,4 +109,9 @@ public class ShutdownReciever extends BroadcastReceiver {
 	        }
 	    }.execute(null, null, null);
 	}
+=======
+		Log.d("ShutDownReceiver","insideshutdwnreceiver");
+	}
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 }

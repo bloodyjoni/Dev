@@ -19,7 +19,11 @@
  */
 function CreateBackgroundService(serviceName, require, exports, module) {
 	var exec = require("cordova/exec");
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
 	var BackgroundService = function (serviceName) {
 		var ServiceName = serviceName
 		this.getServiceName = function() {
@@ -177,6 +181,7 @@ function CreateBackgroundService(serviceName, require, exports, module) {
 						[this.getServiceName()]);
 	};
 
+<<<<<<< HEAD
 	/**
 	  * Returns the doWork once
 	  *
@@ -194,3 +199,8 @@ function CreateBackgroundService(serviceName, require, exports, module) {
 	var backgroundService = new BackgroundService(serviceName);
 	module.exports = backgroundService;
 }; 
+=======
+	var backgroundService = new BackgroundService(serviceName);
+	module.exports = backgroundService;
+}; 
+>>>>>>> 53cbea9d5ed0657217021133b87198c8686be3a8
