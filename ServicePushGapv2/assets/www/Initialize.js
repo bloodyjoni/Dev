@@ -64,33 +64,36 @@ var myService = cordova.require('cordova/plugin/myService');
 											function(r){handleSuccess(r)},
 											function(e){handleError(e)});
  			}
+ 			function StartNRegister(){
+ 				myService.startService(	function(r){handleSuccess(r)},
+						function(e){handleError(e)});
+ 				myService.registerForBootStart(	function(r){handleSuccess(r)},
+						function(e){handleError(e)});
+ 				
+ 			}
+ 			function StopNUnregister(){
+ 				myService.stopService(	function(r){handleSuccess(r)},
+						function(e){handleError(e)});
+ 				myService.deregisterForBootStart(	function(r){handleSuccess(r)},
+						function(e){handleError(e)});
+ 				
+ 			}
 
 			/*
 			 * View logic
 			 */
  			function updateView(data) {
 				var serviceBtn = document.getElementById("toggleService");
-				var timerBtn = document.getElementById("toggleTimer");
-				var bootBtn = document.getElementById("toggleBoot");
 				var updateBtn = document.getElementById("updateBtn");
 				var refreshBtn = document.getElementById("refreshBtn");
 
 				var serviceStatus = document.getElementById("serviceStatus");
-				var timerStatus = document.getElementById("timerStatus");
-				var bootStatus = document.getElementById("bootStatus");
-
+			
 				serviceBtn.disabled = false;
 				if (data.ServiceRunning) {
 					serviceStatus.innerHTML = "Running";
-					serviceBtn.onclick = stopService;
-					timerBtn.disabled = false;
-					if (data.TimerEnabled) {
-						timerStatus.innerHTML = "Enabled";
-						timerBtn.onclick = disableTimer;
-					} else {
-						timerStatus.innerHTML = "Disabled";
-						timerBtn.onclick = enableTimer;
-					} 
+					serviceBtn.onclick =StopNUnregister;
+				
 
 					updateBtn.disabled = false;
 					updateBtn.onclick = setConfig;
@@ -100,22 +103,11 @@ var myService = cordova.require('cordova/plugin/myService');
 
 				} else { 
 					serviceStatus.innerHTML = "Not running";
-					serviceBtn.onclick = startService;
-					timerBtn.disabled = true;
-					timerEnabled = false; 
+					serviceBtn.onclick = StartNRegister;
 
-					updateBtn.disabled = false;
-					refreshBtn.disabled = false;
+					updateBtn.disabled = true;
+					refreshBtn.disabled = true;
 				} 
-
-				bootBtn.disabled = false;
-				if (data.RegisteredForBootStart) {
-					bootStatus.innerHTML = "Registered";
-					bootBtn.onclick = deregisterForBootStart;
-				} else {
-					bootStatus.innerHTML = "Not registered";
-					bootBtn.onclick = registerForBootStart;
-				}
 
 				if (data.Configuration != null)
 				{

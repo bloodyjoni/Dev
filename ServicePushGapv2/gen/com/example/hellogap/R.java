@@ -180,6 +180,7 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020016;
         public static final int common_signin_btn_text_pressed_light=0x7f020017;
         public static final int ic_launcher=0x7f020018;
+        public static final int icono=0x7f020019;
     }
     public static final class id {
         public static final int action_settings=0x7f060005;
@@ -288,15 +289,6 @@ containing a value of this type.
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
          */
         public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 

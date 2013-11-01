@@ -174,7 +174,7 @@ function CreateBackgroundService(serviceName, require, exports, module) {
 						failureCallback,      
 						'BackgroundServicePlugin',      
 						'getStatus',      
-						this.getServiceName()]);
+						[this.getServiceName()]);
 	};
 
 

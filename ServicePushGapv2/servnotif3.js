@@ -27,9 +27,11 @@ var msg = {
     message: "Hello mundo cruel bis:P" // your payload data
   }
 };
- console.log(msg.registration_ids);
+console.log(msg.registration_ids);
 // send the message and see what happened
+function sendMsg(){
 gcm.send(msg, function(err, response) {
   // that error is from the http request, not gcm callback
   console.log(response); // http://developer.android.com/guide/google/gcm/gcm.html#response
 });
+};
