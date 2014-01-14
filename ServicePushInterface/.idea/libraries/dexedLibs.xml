@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/jline-eb3e14a14538f5399eeba1a4383be027.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/js-2a50eef0dcf429259150390556d61656.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/gcm-448040e11b0e18f1fe76910ac7be0f28.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/backgroundserviceplugin-2.9.0-5c65017a92148201bd7c05741e5c8b1c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-1341f63011c000f500cbf7f6f6da4b64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/cordova-2.9.0-152249df8949d9d20cef1fee1135b21f.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
