@@ -1,14 +1,52 @@
 /*
  * Parte correspondiente a la lista en la pagina PoliticasPublicas html 
  */
-function getDBPPublicasList(tx){
-	tx.executeSql('Select id,Titulo,img from PPublicasCategorias', [], querySuccessPPublicas, errorCB);
+function getDBPPublicasList(tx,catid){
+	tx.executeSql('Select id,Titulo,fulltext,introtext,catid from PPublicasContent', [], function (tx,results){querySuccessPPublicas(tx,results,catid);}, errorCB);
 
 
 }
 
 //modificate here to get the full item results
-function querySuccessPPublicas(tx, results) {
+function querySuccessPPublicas(tx, results,catid) {
+
+	var len = results.rows.length;
+	console.log("Tabla PPublicasContent: " + len + " filas encontradas.");
+	$('#PPublicasCat'+catid).empty();
+	for (var i=0; i<len; i++){
+		//	alert(results.rows.item(i).img);
+		$('#PPublicasCat'+catid).append($('<li/>', { 
+			'data-id':results.rows.item(i).id//here appending `<li>`
+		}).append(function(){
+			if(results.rows.item(i).img=='true'){
+				return $('<img/>',{
+					'src': getLocalConfig("appContentPath")+'/images/PPublicas/'+results.rows.item(i).id+'.jpg',
+					'class':'thumb'
+				})}})
+				.append($('<a/>',{    //here appending `<a>` into `<li>`
+					'href': 'javascript:goToFicha('+results.rows.item(i).id+',"PPublicas")',
+					'data-transition': 'slide',
+					'text': results.rows.item(i).Titulo
+				})));
+
+		$('#PPublicasCat'+catid).listview('refresh');
+		console.log($('#PPublicasCat'+catid).html());
+	}
+}
+function getPPublicasList(catid){ 
+	db.transaction(function(tx){getDBPPublicasList(tx,catid);} , errorCB);
+}
+/*
+ * Parte correspondiente a la lista en la pagina PoliticasPublicas html 
+ */
+function getDBPPublicasCatList(tx){
+	tx.executeSql('Select id,Titulo from PPublicasCategorias', [], querySuccessPPublicasCat, errorCB);
+
+
+}
+
+//modificate here to get the full item results
+function querySuccessPPublicasCat(tx, results) {
 
 	var len = results.rows.length;
 	console.log("Tabla PPublicasCategorias: " + len + " filas encontradas.");
@@ -27,34 +65,38 @@ function querySuccessPPublicas(tx, results) {
 					'href': 'javascript:goToFicha('+results.rows.item(i).id+',"PPublicas")',
 					'data-transition': 'slide',
 					'text': results.rows.item(i).Titulo
+				})).append($('<ul/>',{    //here appending `<ul>` into `<li>`
+					'id': "PPublicasCat"+results.rows.item(i).id
 				})));
 
 		$('#listPPCategorias').listview('refresh');
 		console.log($('#listPPCategorias').html());
+		
+		getPPublicasList(results.rows.item(i).id);
 	}
 }
-function getPPublicasList(){ 
-	db.transaction(getDBPPublicasList , errorCB);
+function getPPublicasCatList(){ 
+	db.transaction(getDBPPublicasCatList , errorCB);
 }
 /*
  * Parte Actualisacion
  */
 /*
- * Parte del codigo responsable de la actualisacion de la base PPublicas
+ * Parte del codigo responsable de la actualisacion de la base PPublicasContent
  * 
  */
 function insertPPublicasDB(tx,obj){
 	for(var i = 0; typeof(obj[i])!= "undefined"; i++){
-		tx.executeSql('INSERT INTO PPublicasCategoria (id, Titulo, text, FechaIni, FechaFin) VALUES ("'
+		tx.executeSql('INSERT INTO PPublicasContent (id, catid ,Titulo ,fulltext ,introtext) VALUES ("'
 				+ obj[i].id
 				+ '","'
-				+ obj[i].Titulo
+				+ obj[i].catid
 				+ '","'
-				+ obj[i].text
+				+ obj[i].title
 				+ '","'
-				+ obj[i].FechaIni
+				+ obj[i].fulltext
 				+ '","'
-				+ obj[i].FechaFin
+				+ obj[i].introtext
 				+ '")');
 	}
 
@@ -75,25 +117,75 @@ function updatePPublicasDB(data){
 														+ obj[i].FechaFin
 														+ "')");*/
 	var type='PPublicas';
-	db.transaction(function(tx){insertPPublicasDB(tx,obj)},function (err){errorUpdate(err,"PPublicas")},function (){successUpdate("PPublicas");}); 
+	db.transaction(function(tx){insertPPublicasDB(tx,obj)},function (err){errorUpdate(err,"PPublicasContent")},function (){successUpdate("PPublicasContent");}); 
 
 }
 
-function updatePPublicas(diferenceStr){
+function updatePPublicas(catid){
 	console.log("inside update PPublicas");
 	//if(typeof(diferenceStr)==='undefined') diferenceStr = "+0 day";
 	$.ajax({
 		type : 'GET', // Le type de ma requete
-		url : 'http://www.proyectored.com.ar/mobile/UPDTPPublicas.php', // L'url vers laquelle la requete sera envoyee
-		data : {
-			currid:  getCurrentDBId('PPublicas'),
-			minid: getMinDBId('PPublicas'),
-			diference: diferenceStr,
-		},
+		url : 'http://www.proyectored.com.ar/mobile/getPPContent.php?idCategoria='+catid, // L'url vers laquelle la requete sera envoyee
 		success : function(data, textStatus, jqXHR){
-			//alert(data);
+			alert(data);
 			updatePPublicasDB(data);
-			updateExtraPPublicas();
+			//updateExtraPPublicas();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Problema de connexion' + textStatus+ " : " + errorThrown);
+		}
+	});
+}
+/*
+ * Parte Actualisacion
+ */
+/*
+ * Parte del codigo responsable de la actualisacion de la base PPublicasCategorias
+ * 
+ */
+function insertPPublicasCatDB(tx,obj){
+	for(var i = 0; typeof(obj[i])!= "undefined"; i++){
+		tx.executeSql('INSERT INTO PPublicasCategorias (id, Titulo) VALUES ("'
+				+ obj[i].id
+				+ '","'
+				+ obj[i].title
+				+ '")');
+		updatePPublicas(obj[i].id);
+
+	}
+	
+}
+function updatePPublicasCatDB(data){
+	var obj = JSON.parse(data);
+	alert(obj);
+	//alert(obj[i]);
+	/*alert("INSERT INTO Eventos (id, Titulo, Desc, FechaIni, FechaFin) VALUES ('"
+														+ obj[i].id
+														+ "','"
+														+ obj[i].Titulo
+														+ "','"
+														+ obj[i].text
+														+ "','"
+														+ obj[i].FechaIni
+														+ "','"
+														+ obj[i].FechaFin
+														+ "')");*/
+	var type='PPublicas';
+	db.transaction(function(tx){insertPPublicasCatDB(tx,obj)},function (err){errorUpdate(err,"PPublicasCat")},function (){successUpdate("PPublicasCat");}); 
+
+}
+
+function updatePPublicasCat(){
+	console.log("inside update PPublicasCat");
+	//if(typeof(diferenceStr)==='undefined') diferenceStr = "+0 day";
+	$.ajax({
+		type : 'GET', // Le type de ma requete
+		url : 'http://www.proyectored.com.ar/mobile/getPPItems.php', // L'url vers laquelle la requete sera envoyee
+		success : function(data, textStatus, jqXHR){
+			alert(data);
+			updatePPublicasCatDB(data);
+			//updateExtraPPublicas();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			alert('Problema de connexion' + textStatus+ " : " + errorThrown);

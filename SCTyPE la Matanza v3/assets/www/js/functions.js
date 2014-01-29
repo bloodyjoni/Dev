@@ -71,4 +71,9 @@ function sendContactForm(objForm){
           //  prompt("Error"+JSON.stringify(result));
         }
     });   
-}
+	
+}/*
+function openExternalURL(){
+	window.open($(this).attr("data-href"), '_system', 'location=no');
+
+}*/

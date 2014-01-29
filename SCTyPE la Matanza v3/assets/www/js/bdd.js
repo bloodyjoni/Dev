@@ -9,11 +9,14 @@ function bddhandler(){
 
 }
 function populateDB(tx) { 
-/*	tx.executeSql('DROP TABLE IF EXISTS Eventos');
+	tx.executeSql('DROP TABLE IF EXISTS Eventos');
 	tx.executeSql('DROP TABLE IF EXISTS ExtraEventos');
 	tx.executeSql('DROP TABLE IF EXISTS Noticias');
 	tx.executeSql('DROP TABLE IF EXISTS ExtraNoticias');
-*/
+	tx.executeSql('DROP TABLE IF EXISTS PPublicasCategorias');
+	tx.executeSql('DROP TABLE IF EXISTS PPublicasContent');
+	tx.executeSql('DROP TABLE IF EXISTS ExtraPPublicas');
+	
 	tx.executeSql('CREATE TABLE IF NOT EXISTS Eventos (id INTEGER PRIMARY KEY , Titulo, text, FechaIni, FechaFin, img TEXT DEFAULT \'false\')');
 	//   tx.executeSql('INSERT INTO Eventos (id, Titulo, text, FechaIni, FechaFin) VALUES ("1" ,"Permitido Soñar","Eventos uno","2014-03-15","2014-03-18" )');
 	
@@ -21,6 +24,9 @@ function populateDB(tx) {
 	// tx.executeSql('INSERT INTO Noticias (id, Titulo, text, FechaIni, FechaFin) VALUES ("1" ,"Permitido Soñar","Eventos dos","2014-03-15","2014-03-18" )');
 	tx.executeSql('CREATE TABLE IF NOT EXISTS ExtraEventos (externalId INTEGER , key, value, PRIMARY KEY (externalId,key))');
 	tx.executeSql('CREATE TABLE IF NOT EXISTS ExtraNoticias (externalId INTEGER , key, value, PRIMARY KEY (externalId,key))');
+	tx.executeSql('CREATE TABLE IF NOT EXISTS PPublicasContent (id INTEGER, catid INTEGER, Titulo, fulltext, introtext, PRIMARY KEY (id,catid))');
+	tx.executeSql('CREATE TABLE IF NOT EXISTS PPublicasCategorias (id INTEGER, Titulo, PRIMARY KEY (id,Titulo))');
+	tx.executeSql('CREATE TABLE IF NOT EXISTS ExtraPPublicas(externalId INTEGER , key, value, PRIMARY KEY (externalId,key))');
 }
 
 function errorCB(err) {
@@ -127,7 +133,7 @@ function getEventosList(){
  *
  */
 function getDBEventosListSlider(tx){
-	tx.executeSql('Select id,Titulo,img,FechaFin from Eventos where FechaFin >= date(\'now\') ORDER BY FechaFin LIMIT 4', [], querySuccessEventosSlider, errorCB);
+	tx.executeSql('Select id,Titulo,img,FechaIni,FechaFin from Eventos where FechaFin >= date(\'now\') ORDER BY FechaFin LIMIT 4', [], querySuccessEventosSlider, errorCB);
 
 
 }
@@ -151,6 +157,8 @@ function querySuccessEventosSlider(tx, results) {
 							'src': getLocalConfig("appContentPath")+'/images/Eventos/'+results.rows.item(i).id+'.jpg',
 							'alt' : results.rows.item(i).Titulo,
 							'name': results.rows.item(i).Titulo,
+							'data-fechaini': results.rows.item(i).FechaIni,
+							'data-fechafin': results.rows.item(i).FechaFin,
 							'data-id': results.rows.item(i).id
 							
 						})}
@@ -159,6 +167,8 @@ function querySuccessEventosSlider(tx, results) {
 							'src': 'file:///android_asset/www/content/images/ciencia.jpg',
 							'alt' : results.rows.item(i).Titulo,
 							'name': results.rows.item(i).Titulo,
+							'data-fechaini': results.rows.item(i).FechaIni,
+							'data-fechafin': results.rows.item(i).FechaFin,
 							'data-id': results.rows.item(i).id
 
 						})
@@ -172,6 +182,8 @@ function querySuccessEventosSlider(tx, results) {
 						'src': getLocalConfig("appContentPath")+'/images/Eventos/'+results.rows.item(i).id+'.jpg',
 						'alt' : results.rows.item(i).Titulo,
 						'name': results.rows.item(i).Titulo,
+						'data-fechaini': results.rows.item(i).FechaIni,
+						'data-fechafin': results.rows.item(i).FechaFin,
 						'data-id': results.rows.item(i).id
 					})}
 				else{
@@ -179,6 +191,8 @@ function querySuccessEventosSlider(tx, results) {
 						'src': 'file:///android_asset/www/content/images/ciencia.jpg',
 						'alt' : results.rows.item(i).Titulo,
 						'name': results.rows.item(i).Titulo,
+						'data-fechaini': results.rows.item(i).FechaIni,
+						'data-fechafin': results.rows.item(i).FechaFin,
 						'data-id': results.rows.item(i).id
 					})
 				}});;}
@@ -191,6 +205,8 @@ function querySuccessEventosSlider(tx, results) {
 							'src': getLocalConfig("appContentPath")+'/images/Eventos/'+results.rows.item(i).id+'.jpg',
 							'alt' : results.rows.item(i).Titulo,
 							'name': results.rows.item(i).Titulo,
+							'data-fechaini': results.rows.item(i).FechaIni,
+							'data-fechafin': results.rows.item(i).FechaFin,
 							'data-id':results.rows.item(i).id
 						})}
 					else{
@@ -198,6 +214,8 @@ function querySuccessEventosSlider(tx, results) {
 							'src': 'file:///android_asset/www/content/images/ciencia.jpg',
 							'alt' : results.rows.item(i).Titulo,
 							'name': results.rows.item(i).Titulo,
+							'data-fechaini': results.rows.item(i).FechaIni,
+							'data-fechafin': results.rows.item(i).FechaFin,
 							'data-id':results.rows.item(i).id
 						})
 					}});
@@ -211,10 +229,12 @@ function querySuccessEventosSlider(tx, results) {
 		var src = $(this).attr("src");
 		var alt = $(this).attr("alt");
 		var name = $(this).attr("name");
+		var fechaini = $(this).attr("data-fechaini");
+		var fechafin = $(this).attr("data-fechafin");
 		var id= $(this).attr("data-id");
 		//alert("<a href='javascript:goToFicha("+id+',"Eventos")'+"'>"+'<img src="' + src + '" style="width:100%; height:100%;"/></a>' );
 		$('#dialogcontent').empty().append("<a href='javascript:goToFicha("+id+',"Eventos")'+"'>"+'<img src="' + src + '" style="width:100%; height:100%;"/></a>' );
-		$('#dialoghead').empty().append('<center><h3>' + alt + '</h3></center>' );
+		$('#dialoghead').empty().append('<center><h3>' + alt +'</br>' +fechaini+' / '+fechafin+'</h3></center>' );
 		$(this).parent().addClass('selectedimg');
 	});
 
@@ -275,13 +295,17 @@ function getFicha(tx,id,type){
 	else if(type=="Noticias"){
 		tx.executeSql('Select id,Titulo,text from Noticias where id='+id, [],function(tx,results){querySuccessFicha(tx,results,id,type)} , errorCB);
 	}
+	else if(type=="PPublicas"){
+		tx.executeSql('Select id,Titulo,introtext,fulltext from PPublicasContent where id='+id, [],function(tx,results){querySuccessFicha(tx,results,id,type)} , errorCB);	
+	}
 }
 function querySuccessFicha(tx, results,id,type) {
 
 	var len = results.rows.length;
-	$("#titletempl").text(results.rows.item(0).Titulo);
+	$("#titletempl").html(results.rows.item(0).Titulo);
 
-	$("#spantempl").text(results.rows.item(0).text);
+	$("#spantempl").html(results.rows.item(0).introtext+'<br/>'+results.rows.item(0).fulltext);
+
 }
 function getCurId(tx, table){
 	//alert('select MAX(id) AS id FROM '+table+'');
@@ -329,19 +353,22 @@ function getExtrasResults(tx,results,type){
 			//alert("url changing"+ results.rows.item(i).value);
 			$('#extratempl').append($('<div/>')
 					.append($('<a/>', {    //here appending `<a>` into `<li>`
-						'href': results.rows.item(i).value,
+						'href': "#",
+						'data-href': results.rows.item(i).value,
 						'text': "URL",
-						'rel':"external",
-						'onclick': "window.open(this.href, '_system', 'location=no');"
+						'data-rel':"external",
+						//'onclick': "openExternalURL();"
+						'onclick': "window.open($(this).attr(\"data-href\"), '_system', 'location=no');"
 					})));
 		}
 		else if(results.rows.item(i).key =="img"){
 			//alert("img changing");
+			if(document.getElementById('imgtempl') === null){
 			$('#ptempl').prepend($('<img/>',{ 
 				'id':'imgtempl',
 				'src': getLocalConfig("appContentPath")+'/images/'+type+'/'+results.rows.item(i).externalId+'.jpg'
 			})); 
-
+			}
 			//$("#imgtempl").attr('src','../content/images/'+type+'/'+results.rows.item(i).externalId+'.jpg');
 		}
 

@@ -95,3 +95,20 @@ text-align:center;
 	height:100%;
 	width:50%;
 }
+
+.ui-icon-scytype-facebook {
+	background-image: url("images/custom-png/facebook-icon.png");
+	
+	background-size: 18px 18px;
+}
+.ui-icon-scytype-twitter {
+	background-image: url("images/custom-png/twitter-icon.png");
+	background-size: 18px 18px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	.ui-icon-myapp-email {
+		background-image: url("app-icon-email-highres.png");
+		background-size: 18px 18px;
+	}
+	...more HD icon rules go here...
+}

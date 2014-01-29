@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../css/slider.css">
 <link rel="stylesheet" href="../css/template.css" />
 
-<script src="js/jquery-1.9.1.js"></script>
+<script src="../js/jquery-1.9.1.js"></script>
 <!--apply global settings-->
 <script type="text/javascript">
 	$(document).bind("mobileinit", function() {
@@ -45,7 +45,7 @@
 	}, false);
 </script>
 </head>
- <body>
+ <body onunload="">
 	<div id="maintempl" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Back" >
          <!--Header page -->
 		<div id="headerPage" data-role="header" data-position="fixed" data-tap-toggle="false">
@@ -106,8 +106,16 @@
           <script>
           	
           	$('#maintempl').on("pagebeforeshow",function (){
+          		if(db === undefined){
+          			document.addEventListener("deviceready", function() {
+          			createTextImg();
+          			}, false);
+          			
+          		}
+          		else{
           		createTextImg();
-				});
+				
+          		}});
 	//$('#imgtempl').attr('src')=GetURLParameter('imgsrc');
 	
           </script>

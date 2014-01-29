@@ -3,7 +3,7 @@
 *
 */
 function errorUpdate(err,type) {
-	$( "#updt"+type ).text(type+" Nada para actualisar");
+	$( "#updt"+type ).text(type+" Nada para actualizar");
 }
 function successUpdate(type) {
 	$( "#updt"+type ).text(type+" HECHO");
@@ -12,6 +12,7 @@ function updateAll(){
   //  alert("inside update all");
 	updateEventos();
 	updateNoticias();
+	updatePPublicasCat();
 }
 /*
  * Parte del codigo responsable de la actualisacion de la base Noticias

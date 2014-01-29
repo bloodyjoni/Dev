@@ -76,7 +76,20 @@
 			
 			</div>
     </div>
-
+		<script>
+		$(document).on("pagebeforeshow",function (){
+			  // code that will run once the entire DOM is loaded into the browser
+			  
+			console.log(($("listPPCategorias").text().length));
+			  if(!($("listPPCategorias").text().length)){
+			  getPPublicasCatList();
+			}
+			 console.log(($("#listEventos").text().length));
+			  if(!($("#listEventos").text().length)){
+			  getEventosList();
+			}
+				 
+			});</script>
 	
 		<!-- FooterPage-->
 		<div data-role="footer" data-position="fixed" data-tap-toggle="false"
